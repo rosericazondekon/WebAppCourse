@@ -1,0 +1,99 @@
+<!-- Views/Home/Feedback.cshtml -->
+
+@{
+    ViewData["Title"] = "Submit a Feeback";
+}
+
+<h2>Submit a Feedback</h2>
+
+<form id="feedbackForm">
+    <div class="mb-3">
+        <label for="userName" class="form-label">Name:</label>
+        <input type="text" id="userName" name="userName" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="userFeedback" class="form-label">Feedback:</label>
+        <textarea id="userFeedback" name="userFeedback" class="form-control" required></textarea>
+    </div>
+    <div class="col-auto">
+        <button type="button" class="btn btn-primary mb-3" onclick="submitFeedback()">Submit</button>
+    </div>
+</form>
+
+<script>
+    @* function submitFeedback() {
+    // Get form data
+    const userName = document.getElementById('userName').value.trim();
+    const userFeedback = document.getElementById('userFeedback').value.trim();
+
+    // Validate form inputs
+    if (!userName || !userFeedback) {
+        alert('Please fill out all fields before submitting.');
+        return;
+    }
+
+    const formData = {
+        userName: userName,
+        userFeedback: userFeedback
+    };
+
+    // Perform AJAX request
+    $.ajax({
+        type: 'POST',
+        url: '/Feedback/SubmitFeedback',
+        data: formData,
+        success: function (response) {
+            if (response.success) {
+                alert(response.message || 'Feedback submitted successfully!');
+                // Optionally clear the form
+                document.getElementById('userName').value = '';
+                document.getElementById('userFeedback').value = '';
+            } else {
+                alert('Feedback submission failed. Please try again.');
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('AJAX error:', textStatus, errorThrown);
+            alert('An unexpected error occurred while submitting feedback. Please try again later.');
+        }
+    });
+    } *@
+
+    function submitFeedback() {
+        // Get form data
+        var formData = {
+            userName: document.getElementById('userName').value.trim(),
+            userFeedback: document.getElementById('userFeedback').value.trim()
+        };
+
+        // Perform AJAX request
+        $.ajax({
+            type: 'POST',
+            url: '/Feedback/SubmitFeedback',
+            data: formData,
+            success: function (response) {
+                if (response.success) {
+                    alert(response.message);
+                    // Optionally, you can update the UI or perform additional actions here
+                    const form = document.getElementById('feedbackForm');
+                    form.innerHTML = `
+                        <p><strong>Name:</strong> ${formData.userName}</p>
+                        <p><strong>Feedback:</strong> ${formData.userFeedback}</p>
+                        <div class="mt-3">
+                            <button type="button" class="btn btn-success" onclick="goHome()">Back to Home</button>
+                        </div>
+                    `;
+                } else {
+                    alert('Feedback submission failed.');
+                }
+            },
+            error: function () {
+                alert('An error occurred while submitting feedback.');
+            }
+        });
+    }
+
+    function goHome() {
+        window.location.href = '/'; // Redirect to the homepage
+    }
+</script>
