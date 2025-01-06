@@ -21,44 +21,7 @@
 </form>
 
 <script>
-    @* function submitFeedback() {
-    // Get form data
-    const userName = document.getElementById('userName').value.trim();
-    const userFeedback = document.getElementById('userFeedback').value.trim();
-
-    // Validate form inputs
-    if (!userName || !userFeedback) {
-        alert('Please fill out all fields before submitting.');
-        return;
-    }
-
-    const formData = {
-        userName: userName,
-        userFeedback: userFeedback
-    };
-
-    // Perform AJAX request
-    $.ajax({
-        type: 'POST',
-        url: '/Feedback/SubmitFeedback',
-        data: formData,
-        success: function (response) {
-            if (response.success) {
-                alert(response.message || 'Feedback submitted successfully!');
-                // Optionally clear the form
-                document.getElementById('userName').value = '';
-                document.getElementById('userFeedback').value = '';
-            } else {
-                alert('Feedback submission failed. Please try again.');
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error('AJAX error:', textStatus, errorThrown);
-            alert('An unexpected error occurred while submitting feedback. Please try again later.');
-        }
-    });
-    } *@
-
+    
     function submitFeedback() {
         // Get form data
         var formData = {
