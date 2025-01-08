@@ -4,29 +4,36 @@
     ViewData["Title"] = "Submit a Feeback";
 }
 
-<h2>Submit a Feedback</h2>
+<h2>@ViewData["Title"]</h2>
 
-<form id="feedbackForm">
-    <div class="mb-3">
-        <label for="userName" class="form-label">Name:</label>
-        <input type="text" id="userName" name="userName" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="userFeedback" class="form-label">Feedback:</label>
-        <textarea id="userFeedback" name="userFeedback" class="form-control" required></textarea>
-    </div>
-    <div class="col-auto">
-        <button type="button" class="btn btn-primary mb-3" onclick="submitFeedback()">Submit</button>
-    </div>
-</form>
-
+<div class="container mt-5">
+    <form id="feedbackForm">
+        <div class="mb-3">
+            <label for="userName" class="form-label">Name:</label>
+            <input type="text" id="userName" name="userName" class="form-control" required>
+        </div>
+        <div class="mb-3">
+                <label for="userFeedback" class="form-label">Notes</label>
+                <div id="userFeedback" class="form-control" style="height: 150px;"></div>
+                <div class="form-text">Enter detailed notes</div>
+            </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary mb-3" onclick="submitFeedback()">Submit</button>
+        </div>
+    </form>
+</div>
+<script src="~/lib/quill/dist/js/quill.min.js"></script>
 <script>
-    
+    const quill = new Quill('#userFeedback', {
+        theme: 'snow',
+        placeholder: 'Enter your feedback here...'
+    });
+
     function submitFeedback() {
         // Get form data
         var formData = {
             userName: document.getElementById('userName').value.trim(),
-            userFeedback: document.getElementById('userFeedback').value.trim()
+            userFeedback: quill.root.innerHTML
         };
 
         // Perform AJAX request

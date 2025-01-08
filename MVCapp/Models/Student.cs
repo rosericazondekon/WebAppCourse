@@ -19,4 +19,7 @@ public class Student
 
     [Range(0, 99999.99)]
     public decimal Tuition { get; set; }
+
+    [StringLength(50)]
+    public string Notes { get; set; } = string.Empty;
 }
