@@ -1,4 +1,4 @@
-<!-- Views/Home/Feedback.cshtml -->
+<!-- Views/Feedback.cshtml -->
 
 @{
     ViewData["Title"] = "Submit a Feeback";
@@ -36,7 +36,6 @@
             data: formData,
             success: function (response) {
                 if (response.success) {
-                    alert(response.message);
                     // Optionally, you can update the UI or perform additional actions here
                     const form = document.getElementById('feedbackForm');
                     form.innerHTML = `
@@ -46,6 +45,7 @@
                             <button type="button" class="btn btn-success" onclick="goHome()">Back to Home</button>
                         </div>
                     `;
+                    alert(response.message);
                 } else {
                     alert('Feedback submission failed.');
                 }

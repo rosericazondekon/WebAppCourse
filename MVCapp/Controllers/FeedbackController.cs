@@ -12,6 +12,6 @@ public class FeedbackController : Controller
         // Process the feedback data (e.g., save to a database)
         // Simulate server processing delay for demonstration purposes
         System.Threading.Thread.Sleep(2000);
-        return Json(new { success = true, message = "Feedback submitted successfully!" });
+        return Json(new { success = true, message = "Feedback successfully submitted!" });
     }
 }

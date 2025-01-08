@@ -1,0 +1,105 @@
+<!-- Views/Student.cshtml -->
+
+@{
+    ViewData["Title"] = "Submit a Student";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Student Form</h1>
+    <form id="studentForm">
+        <!-- Name Field -->
+        <div class="mb-3">
+            <label for="studentName" class="form-label">Name</label>
+            <input 
+                type="text" 
+                id="studentName" 
+                name="studentName" 
+                class="form-control" 
+                maxlength="50" 
+                required 
+                placeholder="Enter student name">
+            <div class="form-text">Name must be up to 50 characters long.</div>
+        </div>
+
+        <!-- Date of Birth Field -->
+        <div class="mb-3">
+            <label for="studentDob" class="form-label">Date of Birth</label>
+            <input 
+                type="date" 
+                id="studentDob" 
+                name="studentDob" 
+                class="form-control" 
+                required>
+        </div>
+
+        <!-- Tuition Field -->
+        <div class="mb-3">
+            <label for="studentTuition" class="form-label">Tuition</label>
+            <input 
+                type="number" 
+                id="studentTuition" 
+                name="studentTuition" 
+                class="form-control" 
+                min="0" 
+                max="99999.99" 
+                step="1" 
+                required 
+                placeholder="Enter tuition fee">
+            <div class="form-text">Tuition must be a decimal value between 0 and 99999.99.</div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary mb-3" onclick="submitStudent()">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function submitStudent() {
+        // Get form data
+        var formData = {
+            studentName: document.getElementById('studentName').value.trim(),
+            studentDob: document.getElementById('studentDob').value.trim(),
+            studentTuition: document.getElementById('studentTuition').value.trim()
+        };
+
+        // Perform AJAX request
+        if(formData.studentName == "" | formData.studentDob == "" | formData.studentTuition == ""){
+            alert("Invalid Submission!")
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: '/Student/SubmitStudent',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        // Optionally, you can update the UI or perform additional actions here
+                        const form = document.getElementById('studentForm');
+                        form.innerHTML = `
+                            <p><strong>Name:</strong> ${formData.studentName}</p>
+                            <p><strong>Date of Birth:</strong> ${formData.studentDob}</p>
+                            <p><strong>Tuition:</strong> ${formData.studentTuition}</p>
+                            <div class="mt-3">
+                                <button type="button" class="btn btn-success" onclick="goHome()">Back to Home</button>
+                            </div>
+                        `;
+                        alert(response.message);
+                    } else {
+                        alert('Student data submission failed.');
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while submitting feedback.');
+                }
+            });
+        }
+        
+    }
+
+    function goHome() {
+        window.location.href = '/'; // Redirect to the homepage
+    }
+</script>
